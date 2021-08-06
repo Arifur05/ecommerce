@@ -7,10 +7,13 @@ void main() {
 }
 
 class MyApp extends StatelessWidget{
+  static const String title = 'eCommerce';
   @override
   Widget build(BuildContext context) => MaterialApp(
-    home: Home(),
     debugShowCheckedModeBanner: false,
+    title: title,
+    theme: ThemeData(primarySwatch: Colors.indigo),
+    home: Home(),
 
   );
 
