@@ -2,6 +2,7 @@ import 'package:ecommerce/Views/bottom_navigation/cartpage.dart';
 import 'package:ecommerce/Views/bottom_navigation/categoriespage.dart';
 import 'package:ecommerce/Views/bottom_navigation/homepage.dart';
 import 'package:ecommerce/Views/bottom_navigation/profilepage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
@@ -53,6 +54,8 @@ class MainScreen extends State<Home> {
     //VoidCallback? onClicked
   ) {
     return InkWell(
+      splashColor: Theme.of(context).primaryColor,
+      borderRadius: BorderRadius.circular(15),
       onTap: () {
         setState(() {
           _selectedItem = index;
@@ -78,6 +81,7 @@ class MainScreen extends State<Home> {
                   width: 20.0,
                   allowDrawingOutsideViewBox: true,
                   fit: BoxFit.cover,
+                  color: index == _selectedItem ? Colors.black : Colors.grey,
                 ),
               ),
             ),
