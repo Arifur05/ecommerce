@@ -3,6 +3,7 @@ import 'package:ecommerce/Views/bottom_navigation/categoriespage.dart';
 import 'package:ecommerce/Views/bottom_navigation/homepage.dart';
 import 'package:ecommerce/Views/bottom_navigation/profilepage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Home extends StatefulWidget {
@@ -29,54 +30,45 @@ class MainScreen extends State<Home> {
         backgroundColor: Colors.white,
         bottomNavigationBar: Row(
           children: [
-            buildBottomNav("home.svg", 0),
-            buildBottomNav("menu.svg", 1),
-            buildBottomNav("shopping-cart.svg", 2),
-            buildBottomNav("user.svg", 3),
-
+            buildBottomNav("images/home.svg", 0, onClicked: ),
+            buildBottomNav("images/menu.svg", 1),
+            buildBottomNav("images/shopping-cart.svg", 2),
+            buildBottomNav("images/user.svg", 3),
           ],
         ),
       ),
     );
   }
 
-  Widget buildBottomNav(String icon, int index) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _selectedItem = index;
-          _pageController.jumpToPage(_selectedItem);
-        });
-      },
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.transparent,
-        ),
-        height: 50.0,
-        width: MediaQuery
-            .of(context)
-            .size
-            .width / 4,
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 10.0,
-            ),
-            Container(
-              height: 30,
-              width: 30,
-              child: Padding(
-                padding: const EdgeInsets.all(7.0),
-                child: SvgPicture.asset(
-                  icon,
-                  color: index == _selectedItem ? Colors.grey : Colors.grey[700],
-                  height: 21,
-                  width: 21,
-                ),
+  Widget buildBottomNav({
+    required String icon,
+    required int index,
+    VoidCallback? onClicked
+  }) {
+    return Container(
+      decoration: const BoxDecoration(
+        color: Color(0x44e8e8ff),
+      ),
+      height: 60.0,
+      width: MediaQuery.of(context).size.width / 4,
+      child: Column(
+        children: [
+          const SizedBox(height: 10.0),
+          Container(
+            //color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(7.0),
+              child: SvgPicture.asset(
+                icon,
+                height: 20.0,
+                width: 20.0,
+                allowDrawingOutsideViewBox: true,
+                fit: BoxFit.cover,
               ),
             ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 10.0),
+        ],
       ),
     );
   }
