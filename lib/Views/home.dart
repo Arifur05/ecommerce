@@ -64,7 +64,7 @@ class MainScreen extends State<Home> {
       },
       child: Container(
         decoration: const BoxDecoration(
-          color: Color(0x44e8e8ff),
+          color: Color(0x447a7aff),
         ),
         height: 60.0,
         width: MediaQuery.of(context).size.width / 4,
