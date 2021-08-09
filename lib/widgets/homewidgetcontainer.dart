@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:ecommerce/Models/brandsModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,56 +8,95 @@ class HomeWidgetContainer extends StatefulWidget {
   const HomeWidgetContainer({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => HomeWidgetContainerState();
+  _HomeWidgetContainerState createState() => _HomeWidgetContainerState();
 }
 
-class HomeWidgetContainerState extends State<HomeWidgetContainer> {
+class _HomeWidgetContainerState extends State<HomeWidgetContainer> {
+  List<BrandModel> brands = [
+    BrandModel.name('Sony', '_photourl'),
+    BrandModel.name('Beats', '_photourl'),
+    BrandModel.name('Apple', '_photourl'),
+    BrandModel.name('Microsoft', '_photourl'),
+    BrandModel.name('Lenovo', '_photourl'),
+    BrandModel.name('Acer', '_photourl'),
+    BrandModel.name('LG', '_photourl'),
+    BrandModel.name('SkullCandy', '_photourl'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
 
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const Expanded(
-                  //mainAxisAlignment: MainAxisAlignment.start,
-                  child: Text(
-                    'Choose brand',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Roboto',
-                      //letterSpacing: 0.5,
-                      fontSize: 16,
+        //padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          height:MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const Expanded(
+                    //mainAxisAlignment: MainAxisAlignment.start,
+                    child: Text(
+                      'Choose brand',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Roboto',
+                        //letterSpacing: 0.5,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [Text('See All',style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Roboto',
-                    //letterSpacing: 0.5,
-                    fontSize: 16,
-                  ),)],
-                ),
-              ],
-            ),
-            _brandCategories()
-          ],
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+
+                    children: const [
+                      Text(
+                        'See All',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Roboto',
+                          //letterSpacing: 0.5,
+                          fontSize: 16,
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+              brandCategories()
+            ],
+          ),
         ),
-      ),
+
     );
   }
 
-  Widget _brandCategories() {
+  Widget brandCategories() {
     return InkWell(
-     child: ListView.builder(itemBuilder: itemBuilder)
+      child: SizedBox(
+        height:150.0,
+        width: MediaQuery.of(context).size.width,
+        child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: brands.length,
+            itemBuilder: (context, index) {
+              return Card(
+                child: SizedBox(
+                  height:50.0,
+                  width: 120.0,
+                  child: ListTile(
+                    onTap: (){},
+                    title: Text(brands[index].name),
+                  ),
+                ),
+              );
+            }),
+      ),
     );
   }
 }

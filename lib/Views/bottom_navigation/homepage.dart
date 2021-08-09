@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:ecommerce/widgets/homewidgetcontainer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +26,6 @@ class HomePageScreen extends State<HomePage> {
                       contentPadding: const EdgeInsets.all(8.0),
                       prefixIcon: const Icon(Icons.search_rounded),
                       hintText: 'Search Products',
-                      hintStyle: TextStyle(fontFamily: 'Roboto'),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                           borderSide: const BorderSide(
@@ -37,7 +34,6 @@ class HomePageScreen extends State<HomePage> {
                           )),
                     ),
                   ),
-                  const SizedBox(height: 10.0),
                   HomeWidgetContainer(),
                 ],
               ),
