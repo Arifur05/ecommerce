@@ -28,7 +28,7 @@ class MainScreen extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.tealAccent,
         bottomNavigationBar: Row(
           children: [
             buildBottomNav("images/home.svg", 0),
@@ -63,8 +63,9 @@ class MainScreen extends State<Home> {
         });
       },
       child: Container(
-        decoration: const BoxDecoration(
-          color: Color(0x447a7aff),
+        decoration:  BoxDecoration(
+          color: Colors.white.withOpacity(0.8),
+
         ),
         height: 60.0,
         width: MediaQuery.of(context).size.width / 4,

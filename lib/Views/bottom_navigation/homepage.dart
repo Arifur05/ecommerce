@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:ecommerce/widgets/homewidgetcontainer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -36,6 +37,8 @@ class HomePageScreen extends State<HomePage> {
                           )),
                     ),
                   ),
+                  const SizedBox(height: 10.0),
+                  HomeWidgetContainer(),
                 ],
               ),
             ),
