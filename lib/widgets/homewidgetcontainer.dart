@@ -17,7 +17,7 @@ class _HomeWidgetContainerState extends State<HomeWidgetContainer>
   final List<Tab> mTabs = <Tab>[
     const Tab(text: 'Popular'),
     const Tab(text: 'Exclusive'),
-    const Tab(text: 'On Sale'),
+    const Tab(text: 'Sale'),
   ];
   TabController? _controller;
 
@@ -108,7 +108,9 @@ class _HomeWidgetContainerState extends State<HomeWidgetContainer>
                 ),
               ),
               child: TabBar(
+                isScrollable: false,
                   indicatorSize: TabBarIndicatorSize.label,
+                  indicatorWeight: 2.0,
                   indicatorColor: Colors.black,
                   labelColor: Colors.black,
                     unselectedLabelColor: Colors.grey,
