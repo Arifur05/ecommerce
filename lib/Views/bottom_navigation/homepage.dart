@@ -27,7 +27,7 @@ class HomePageScreen extends State<HomePage> {
                       prefixIcon: const Icon(Icons.search_rounded),
                       hintText: 'Search Products',
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
+                          borderRadius: BorderRadius.circular(50.0),
                           borderSide: const BorderSide(
                             color: Colors.grey,
                             width: 1.0,
