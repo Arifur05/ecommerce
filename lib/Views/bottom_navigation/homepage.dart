@@ -34,7 +34,7 @@ class HomePageScreen extends State<HomePage> {
                           )),
                     ),
                   ),
-                  HomeWidgetContainer(),
+                  const HomeWidgetContainer(),
                 ],
               ),
             ),

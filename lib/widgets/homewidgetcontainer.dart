@@ -12,7 +12,27 @@ class HomeWidgetContainer extends StatefulWidget {
   _HomeWidgetContainerState createState() => _HomeWidgetContainerState();
 }
 
-class _HomeWidgetContainerState extends State<HomeWidgetContainer> {
+class _HomeWidgetContainerState extends State<HomeWidgetContainer>
+    with SingleTickerProviderStateMixin {
+  final List<Tab> mTabs = <Tab>[
+    const Tab(text: 'Popular'),
+    const Tab(text: 'Exclusive'),
+    const Tab(text: 'On Sale'),
+  ];
+  TabController? _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TabController(length: mTabs.length, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _controller!.dispose();
+    super.dispose();
+  }
+
   List<BrandModel> brands = [
     BrandModel.name('Sony',
         'https://brandmediacoalition.com/wp-content/uploads/2019/07/Sony-logo-BMS-2019.png'),
@@ -26,10 +46,10 @@ class _HomeWidgetContainerState extends State<HomeWidgetContainer> {
         'https://logosvector.net/wp-content/uploads/2015/07/new-lenovo-logo.png'),
     BrandModel.name('Acer',
         'https://usercontent.one/wp/blog.kevinwebb.co.uk/wp-content/uploads/2020/06/71CD8FFB-D972-4060-88E4-15760AAE574C.png'),
-    BrandModel.name('LG',
-        'https://cdn.siasat.com/wp-content/uploads/2021/01/LG-Logo.webp'),
+    BrandModel.name(
+        'LG', 'https://cdn.siasat.com/wp-content/uploads/2021/01/LG-Logo.webp'),
     BrandModel.name('SkullCandy',
-        'https://www.logo.wine/a/logo/Skullcandy/Skullcandy-Logo.wine.svg'),
+        'https://assets.simpleviewinc.com/simpleview/image/fetch/q_75/https://assets.simpleviewinc.com/simpleview/image/upload/crm/parkcity/Skullcandy_logo0-83143e415056b3a_83143f59-5056-b3a8-497cce650423aa3d.jpg'),
   ];
 
   @override
@@ -41,41 +61,69 @@ class _HomeWidgetContainerState extends State<HomeWidgetContainer> {
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const Expanded(
-                  //mainAxisAlignment: MainAxisAlignment.start,
-                  child: Text(
-                    'Choose brand',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Roboto',
-                      //letterSpacing: 0.5,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Text(
-                      'See All',
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const Expanded(
+                    //mainAxisAlignment: MainAxisAlignment.start,
+                    child: Text(
+                      'Choose brand',
                       style: TextStyle(
                         color: Colors.black,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         fontFamily: 'Roboto',
                         //letterSpacing: 0.5,
                         fontSize: 16,
                       ),
-                    )
-                  ],
-                ),
-              ],
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Text(
+                        'See All',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Roboto',
+                          //letterSpacing: 0.5,
+                          fontSize: 16,
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
-            brandCategories()
+            brandCategories(),
+            Container(
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(
+                  25.0,
+                ),
+              ),
+              child: TabBar(
+                  indicatorSize: TabBarIndicatorSize.label,
+                  indicatorColor: Colors.black,
+                  labelColor: Colors.black,
+                    unselectedLabelColor: Colors.grey,
+                    controller: _controller,
+                    tabs: mTabs),
+
+            ),
+            Expanded(
+              child: TabBarView(
+                controller: _controller,
+                children: mTabs.map((Tab tab) {
+                  return Center(child: Text(tab.text.toString()));
+                }).toList(),
+              ),
+            ),
           ],
         ),
       ),
@@ -84,10 +132,12 @@ class _HomeWidgetContainerState extends State<HomeWidgetContainer> {
 
   Widget brandCategories() {
     return InkWell(
-      child: SizedBox(
-        height: 150.0,
+      child: Container(
+        padding: const EdgeInsets.all(8.0),
+        height: 120.0,
         width: MediaQuery.of(context).size.width,
         child: ListView.builder(
+            shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemCount: brands.length,
             itemBuilder: (context, index) {
@@ -96,7 +146,7 @@ class _HomeWidgetContainerState extends State<HomeWidgetContainer> {
                 child: Column(
                   children: [
                     Image.network(brands[index].photourl,
-                        height: 100, width: 100, fit: BoxFit.contain),
+                        height: 70, width: 80, fit: BoxFit.contain),
                     Text(brands[index].name),
                   ],
                 ),
