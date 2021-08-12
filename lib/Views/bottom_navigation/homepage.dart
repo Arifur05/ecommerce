@@ -17,7 +17,7 @@ class HomePageScreen extends State<HomePage> {
             color: Colors.white,
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.fromLTRB(8.0,8.0,8.0,0.0),
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -34,7 +34,7 @@ class HomePageScreen extends State<HomePage> {
                           )),
                     ),
                   ),
-                  const HomeWidgetContainer(),
+                  HomeWidgetContainer(),
                 ],
               ),
             ),

@@ -1,6 +1,9 @@
 import 'dart:ui';
 
-import 'package:ecommerce/Models/brandsModel.dart';
+import 'package:ecommerce/Models/brandsmodel.dart';
+import 'package:ecommerce/Views/Screens/exclusive.dart';
+import 'package:ecommerce/Views/Screens/onsale.dart';
+import 'package:ecommerce/Views/Screens/popular.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -18,6 +21,12 @@ class _HomeWidgetContainerState extends State<HomeWidgetContainer>
     const Tab(text: 'Popular'),
     const Tab(text: 'Exclusive'),
     const Tab(text: 'Sale'),
+  ];
+
+  final List<Widget> mTabsPages = <Widget>[
+    ExclusiveProducts(),
+    PopularProducts(),
+    OnSaleProducts()
   ];
   TabController? _controller;
 
@@ -121,9 +130,11 @@ class _HomeWidgetContainerState extends State<HomeWidgetContainer>
             Expanded(
               child: TabBarView(
                 controller: _controller,
-                children: mTabs.map((Tab tab) {
-                  return Center(child: Text(tab.text.toString()));
-                }).toList(),
+                children: const <Widget>[
+                  ExclusiveProducts(),
+                  PopularProducts(),
+                  OnSaleProducts()
+                ]
               ),
             ),
           ],
