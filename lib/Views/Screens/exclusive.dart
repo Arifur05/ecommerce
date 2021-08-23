@@ -1,68 +1,53 @@
-import 'package:ecommerce/Models/productsmodel.dart';
-import 'package:ecommerce/providers/productprovider.dart';
-import 'package:ecommerce/server/apimanager.dart';
+import 'package:ecommerce/Models/exclusive_products_model.dart';
+import 'package:ecommerce/Views/common/grid_delegate.dart';
+import 'package:ecommerce/providers/exclusive_product_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ExclusiveProducts extends StatefulWidget{
+class ExclusiveProducts extends ConsumerWidget {
   const ExclusiveProducts({Key? key}) : super(key: key);
 
   @override
-  _ExclusiveProductsPage createState() =>_ExclusiveProductsPage();
-
-}
-
-class _ExclusiveProductsPage extends State<ExclusiveProducts>{
-   final productProvider=ProductProvider();
-
-  @override
-  void initState() {
-
-    productProvider.eventSink.add(ProductsAction.fetch);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
+    AsyncValue<ExclusiveProductModel> exclusiveProductsData =
+        watch(exclusiveProductProvider);
     return Scaffold(
-      body: SafeArea(
-        child: StreamBuilder<List<Data>>(
-          stream: productProvider.productsStream,
-          builder: (context, snapshot){
-            print(snapshot.connectionState);
-                var length = snapshot.data?.length;
-                var data = snapshot.data;
-                return GridView.count(
-                  crossAxisCount: 2,
-                  children: List.generate(data == null ? 0 : data.length, (index) {
-                    return Card(
-                      elevation: 3.0,
-                      child: Column(
-                        children: [
-                          Image.network(data?[index].image,
-                              height: 120,
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width / 4,
-                              fit: BoxFit.contain),
-                          Text(snapshot.data?[index].name),
-                          Text(snapshot.data?[index].price),
-                        ],
-                      ),
-                    );
-                  }
-                  ),
-                );
-
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          },
+        body: SafeArea(
+      child: exclusiveProductsData.when(
+        data: (data) => GridView.builder(
+            shrinkWrap: true,
+            gridDelegate:
+                const SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
+              crossAxisCount: 2,
+              crossAxisSpacing: 2,
+              mainAxisSpacing: 2,
+              height: 320,
+            ),
+            itemCount: data.data!.length,
+            itemBuilder: (context, index) {
+              return Card(
+                elevation: 3.0,
+                child: Column(
+                  children: [
+                    Image.network(data.data![index].image,
+                        height: 120,
+                        width: MediaQuery.of(context).size.width / 4,
+                        fit: BoxFit.contain),
+                    Text(data.data![index].name),
+                    Text(data.data![index].price),
+                  ],
+                ),
+              );
+            }),
+        loading: () => const Center(
+          child: CircularProgressIndicator(),
         ),
-
+        error: (error, stack) => Center(
+          child: Text(
+            error.toString(),
+          ),
+        ),
       ),
-    );
+    ));
   }
-
-
 }

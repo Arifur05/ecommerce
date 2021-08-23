@@ -1,6 +1,6 @@
 import 'package:ecommerce/Models/product.dart';
 import 'package:ecommerce/providers/populerprovider.dart';
-import 'package:ecommerce/providers/productprovider.dart';
+import 'package:ecommerce/providers/exclusive_product_provider.dart';
 import 'package:flutter/material.dart';
 
 class PopularProducts extends StatefulWidget{
@@ -12,12 +12,12 @@ class PopularProducts extends StatefulWidget{
 }
 
 class _PopularProductsPage extends State<PopularProducts>{
-  final popularprovider=PopularProvider();
+
 
   @override
   void initState() {
 
-    popularprovider.eventSink.add(PopulerAction.fetch);
+    /*popularprovider.eventSink.add(PopulerAction.fetch);*/
     super.initState();
   }
 
@@ -26,7 +26,7 @@ class _PopularProductsPage extends State<PopularProducts>{
     return Scaffold(
       body: SafeArea(
         child: StreamBuilder<List<Product>>(
-          stream: popularprovider.productsStream,
+          //stream: popularprovider.productsStream,
           builder: (context, snapshot){
             print(snapshot.connectionState);
 

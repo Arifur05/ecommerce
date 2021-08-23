@@ -37,8 +37,10 @@ dependencies:
   flutter_svg: ^0.22.0
   http: ^0.13.3
   http_retry: ^0.2.0
-  flutter_bloc: ^3.0.0
+  #flutter_bloc: ^3.0.0
   dio: ^4.0.0
+  json_serializable: ^5.0.0
+  flutter_riverpod: ^0.13.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
